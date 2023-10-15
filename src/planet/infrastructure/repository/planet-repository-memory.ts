@@ -1,5 +1,6 @@
 import type PlanetRepositoryInterface from '../../domain/planet-repository'
 import { Planet, QueryParams } from '../../domain/planet'
+import { RepositoryMemory } from '../../../share/infrastructure/repository/memory/repository-memory'
 
 export const planets = [
 	[
@@ -64,26 +65,14 @@ export const planets = [
 	] as Planet[],
 ]
 
+const repository = new RepositoryMemory(planets)
+
 export class PlanetRepositoryMemory implements PlanetRepositoryInterface {
 	async find(id: number): Promise<Planet | null> {
-		const planet = allPlanets().find(planet => planet.id === id)
-
-		if (planet === null) return null
-
-		return planet as Planet
+		return repository.find(id) as Planet
 	}
 
 	async search(query: QueryParams): Promise<Planet[]> {
-		const page = query.page ?? 1
-
-		if (planets[page - 1] !== undefined) {
-			return planets[page - 1]
-		}
-
-		return []
+		return repository.search(query) as Planet[]
 	}
-}
-
-function allPlanets(): Planet[] {
-	return planets.flatMap(page => page)
 }
