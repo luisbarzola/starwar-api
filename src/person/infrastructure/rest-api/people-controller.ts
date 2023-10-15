@@ -14,7 +14,7 @@ export default class PeopleController {
 	async find(req: Request, res: Response): Promise<void> {
 		const person = await this.findPerson.execute(parseInt(req.params.id))
 
-		if (person === null) {
+		if (person === null || person === undefined) {
 			res.status(404).send()
 			return
 		}
