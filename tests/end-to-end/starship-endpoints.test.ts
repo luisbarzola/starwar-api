@@ -2,7 +2,7 @@ import request from 'supertest'
 import { app, server } from '../../src/server'
 import { starships } from '../../src/starship/infrastructure/repository/starship-repository-memory'
 
-describe('InMemoryStarshipEndpoints', () => {
+describe('StarshipEndpoints', () => {
 	afterAll(() => {
 		server.close()
 	})

@@ -5,7 +5,7 @@ import { films } from '../../src/film/infrastructure/repository/film-repository-
 import { planets } from '../../src/planet/infrastructure/repository/planet-repository-memory'
 import { starships } from '../../src/starship/infrastructure/repository/starship-repository-memory'
 
-describe('InMemoryPersonEndpoints', () => {
+describe('PersonEndpoints', () => {
 	afterAll(() => {
 		server.close()
 	})

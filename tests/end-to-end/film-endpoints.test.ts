@@ -2,7 +2,7 @@ import request from 'supertest'
 import { app, server } from '../../src/server'
 import { films } from '../../src/film/infrastructure/repository/film-repository-memory'
 
-describe('InMemoryFilmEndpoints', () => {
+describe('FilmEndpoints', () => {
 	afterAll(() => {
 		server.close()
 	})

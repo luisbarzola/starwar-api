@@ -2,7 +2,7 @@ import request from 'supertest'
 import { app, server } from '../../src/server'
 import { planets as planetsMemory } from '../../src/planet/infrastructure/repository/planet-repository-memory'
 
-describe('InMemoryPlanetEndpoints', () => {
+describe('PlanetEndpoints', () => {
 	afterAll(() => {
 		server.close()
 	})
