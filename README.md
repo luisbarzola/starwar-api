@@ -1,5 +1,8 @@
 # starwar-api
 
+## Live on
+[https://starwar-api-dev-hncm.1.ie-1.fl0.io](https://starwar-api-dev-hncm.1.ie-1.fl0.io)
+
 ## Test
 Successfully passed all tests
 
