@@ -31,6 +31,7 @@ export default class SwapiRepository {
 		const queryUrl = `/?page=${page}${search}`
 
 		try {
+			console.log(`${this.url}${queryUrl}`)
 			const response = await fetch(`${this.url}${queryUrl}`)
 
 			if (response.status !== 200) {
