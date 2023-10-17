@@ -1,6 +1,6 @@
 import type PlanetRepository from '../domain/planet-repository'
 import PlanetModel from '../domain/planet-model'
-import type { Planet } from '../domain/planet'
+import type { PlanetPagination } from '../domain/planet'
 import { QueryParams } from '../../share/application/query'
 
 export default class SearchPlanets {
@@ -10,7 +10,7 @@ export default class SearchPlanets {
 		this.planetModel = new PlanetModel(planetRepository)
 	}
 
-	async execute(query: QueryParams): Promise<Planet[]> {
+	async execute(query: QueryParams): Promise<PlanetPagination> {
 		return await this.planetModel.search(query)
 	}
 }

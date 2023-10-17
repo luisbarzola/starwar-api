@@ -16,3 +16,10 @@ export type Planet = {
 export type QueryParams = {
 	page: number | null
 }
+
+type PlanetPagination = {
+	next_page: number | null
+	preview_page: number | null
+	actual_page: number | null
+	results: Planet[]
+}

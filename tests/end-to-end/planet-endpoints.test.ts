@@ -10,14 +10,24 @@ describe('PlanetEndpoints', () => {
 	describe('search first page', () => {
 		it('should return the planets from first page', async () => {
 			const res = await request(app).get('/planets')
-			expect(res.body).toEqual(planetsMemory[0])
+			expect(res.body).toEqual({
+				actual_page: 1,
+				next_page: 2,
+				preview_page: null,
+				results: planetsMemory[0],
+			})
 		})
 	})
 
 	describe('search second page', () => {
 		it('should return the planets from second page', async () => {
 			const res = await request(app).get('/planets?page=2')
-			expect(res.body).toEqual(planetsMemory[1])
+			expect(res.body).toEqual({
+				actual_page: 2,
+				next_page: null,
+				preview_page: 1,
+				results: planetsMemory[1],
+			})
 		})
 	})
 

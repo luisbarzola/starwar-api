@@ -1,5 +1,5 @@
 import type PlanetRepositoryInterface from '../../domain/planet-repository'
-import { Planet, QueryParams } from '../../domain/planet'
+import { Planet, QueryParams, PlanetPagination } from '../../domain/planet'
 import { RepositoryMemory } from '../../../share/infrastructure/repository/memory/repository-memory'
 
 export const planets = [
@@ -72,7 +72,7 @@ export class PlanetRepositoryMemory implements PlanetRepositoryInterface {
 		return repository.find(id) as Planet
 	}
 
-	async search(query: QueryParams): Promise<Planet[]> {
-		return repository.search(query) as Planet[]
+	async search(query: QueryParams): Promise<PlanetPagination> {
+		return repository.search(query) as PlanetPagination
 	}
 }

@@ -1,5 +1,5 @@
 import PlanetRepository from './planet-repository'
-import { Planet, QueryParams } from './planet'
+import { Planet, QueryParams, PlanetPagination } from './planet'
 
 export default class PlanetModel {
 	constructor(private readonly repository: PlanetRepository) {}
@@ -8,7 +8,7 @@ export default class PlanetModel {
 		return await this.repository.find(id)
 	}
 
-	async search(query: QueryParams): Promise<Planet[]> {
+	async search(query: QueryParams): Promise<PlanetPagination> {
 		return await this.repository.search(query)
 	}
 }

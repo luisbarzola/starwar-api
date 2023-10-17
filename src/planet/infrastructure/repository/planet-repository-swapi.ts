@@ -1,10 +1,12 @@
 import fetch from 'node-fetch'
 import type PlanetRepositoryInterface from '../../domain/planet-repository'
-import { Planet, QueryParams } from '../../domain/planet'
+import { Planet, QueryParams, PlanetPagination } from '../../domain/planet'
 import { getFirstNumberFromUrl } from '../../../share/infrastructure/repository/utils'
-import { PlanetResponse, PlanetsResponse } from './planet-res-api'
+import { PlanetResponse } from './planet-res-api'
+import SwapiRepository from '../../../share/infrastructure/repository/swapi/swapi-repository'
 
 const url = 'https://swapi.dev/api/planets'
+const swapiRepository = new SwapiRepository(url)
 
 export default class PlanetRepositorySwapi
 	implements PlanetRepositoryInterface
@@ -28,17 +30,8 @@ export default class PlanetRepositorySwapi
 		}
 	}
 
-	async search(query: QueryParams): Promise<Planet[]> {
-		const queryUrl = query.page !== null ? `/?page=${query.page}` : ``
-		try {
-			const response = await fetch(`${url}${queryUrl}`)
-			const personJson = await response.json()
-
-			return toPlanets(personJson as PlanetsResponse)
-		} catch (error) {
-			console.error(error)
-			return []
-		}
+	async search(query: QueryParams): Promise<PlanetPagination> {
+		return (await swapiRepository.search(query, toPlanet)) as PlanetPagination
 	}
 }
 
@@ -57,8 +50,4 @@ function toPlanet(response: PlanetResponse): Planet {
 		residents_id: response.residents.map(url => getFirstNumberFromUrl(url)),
 		films_id: response.films.map(url => getFirstNumberFromUrl(url)),
 	}
-}
-
-function toPlanets(response: PlanetsResponse): Planet[] {
-	return response.results.map(person => toPlanet(person))
 }
