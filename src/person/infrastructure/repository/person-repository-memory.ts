@@ -1,5 +1,5 @@
 import type PersonRepositoryInterface from '../../domain/person-repository'
-import { Person, QueryParams } from '../../domain/person'
+import { Person, QueryParams, PersonPagination } from '../../domain/person'
 import { RepositoryMemory } from '../../../share/infrastructure/repository/memory/repository-memory'
 
 export const people = [
@@ -76,7 +76,7 @@ export class PersonRepositoryMemory implements PersonRepositoryInterface {
 		return repository.find(id) as Person
 	}
 
-	async search(query: QueryParams): Promise<Person[]> {
-		return repository.search(query) as Person[]
+	async search(query: QueryParams): Promise<PersonPagination> {
+		return repository.search(query) as PersonPagination
 	}
 }

@@ -1,5 +1,19 @@
 export function getFirstNumberFromUrl(url: string): number {
-	const id: string = url.slice(-1)
+	const id = url.match(/\/(\d+)\/$/)
 
-	return parseInt(id)
+	if (id === null || typeof id[1] !== 'string') {
+		throw new Error('Invalid id')
+	}
+
+	return parseInt(id[1])
+}
+
+export function getPage(url: string): number {
+	const page = url.match(/page=(\d+)/)
+
+	if (page === null || typeof page[1] !== 'string') {
+		throw new Error('Invalid page')
+	}
+
+	return parseInt(page[1])
 }

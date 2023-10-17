@@ -1,6 +1,6 @@
 import PlanetModel from '../../planet/domain/planet-model'
 import PersonRepository from './person-repository'
-import { Person, PersonFull, QueryParams } from './person'
+import { Person, PersonFull, QueryParams, PersonPagination } from './person'
 import Planet from '../../planet/domain/planet'
 import FilmModel from '../../film/domain/film-model'
 import Film from '../../film/domain/film'
@@ -63,7 +63,7 @@ export default class PersonModel {
 		return this
 	}
 
-	async search(query: QueryParams): Promise<Person[]> {
+	async search(query: QueryParams): Promise<PersonPagination> {
 		return await this.repository.search(query)
 	}
 }

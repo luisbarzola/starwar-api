@@ -1,6 +1,6 @@
 import type PersonRepository from '../domain/person-repository'
 import PersonModel from '../domain/person-model'
-import { Person } from '../domain/person'
+import { PersonPagination } from '../domain/person'
 import { QueryParams } from '../../share/application/query'
 
 export default class AllPersons {
@@ -10,7 +10,7 @@ export default class AllPersons {
 		this.person = new PersonModel(this.personRepository)
 	}
 
-	async execute(query: QueryParams): Promise<Person[]> {
+	async execute(query: QueryParams): Promise<PersonPagination> {
 		return await this.person.search(query)
 	}
 }

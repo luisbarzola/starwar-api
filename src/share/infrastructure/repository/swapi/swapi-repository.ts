@@ -1,4 +1,4 @@
-import { getFirstNumberFromUrl } from '../../repository/utils'
+import { getPage } from '../../repository/utils'
 
 export type QueryParams = {
 	page: number | null
@@ -60,14 +60,10 @@ function toPaginator(
 	page: number,
 	transformer: (data: object) => object,
 ): Pagination {
-	console.log(response)
 	return {
-		next_page:
-			response.next !== null ? getFirstNumberFromUrl(response.next) : null,
+		next_page: response.next !== null ? getPage(response.next) : null,
 		preview_page:
-			response.previous !== null
-				? getFirstNumberFromUrl(response.previous)
-				: null,
+			response.previous !== null ? getPage(response.previous) : null,
 		actual_page: page,
 		results: response.results.map(body => transformer(body)),
 	}

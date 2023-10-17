@@ -1,10 +1,12 @@
 import fetch from 'node-fetch'
 import type PersonRepositoryInterface from '../../domain/person-repository'
-import { Person, QueryParams } from '../../domain/person'
+import { Person, QueryParams, PersonPagination } from '../../domain/person'
 import { getFirstNumberFromUrl } from '../../../share/infrastructure/repository/utils'
-import { PersonResponse, PersonsResponse } from './person-res-api'
+import { PersonResponse } from './person-res-api'
+import SwapiRepository from '../../../share/infrastructure/repository/swapi/swapi-repository'
 
 const url = 'https://swapi.dev/api/people'
+const swapiRepository = new SwapiRepository(url)
 
 export default class PersonRepository implements PersonRepositoryInterface {
 	async find(id: number): Promise<Person | null> {
@@ -26,17 +28,8 @@ export default class PersonRepository implements PersonRepositoryInterface {
 		}
 	}
 
-	async search(query: QueryParams): Promise<Person[]> {
-		const queryUrl = query.page !== null ? `/?page=${query.page}` : ``
-		try {
-			const response = await fetch(`${url}${queryUrl}`)
-			const personJson = await response.json()
-
-			return toPersons(personJson as PersonsResponse)
-		} catch (error) {
-			console.error(error)
-			return []
-		}
+	async search(query: QueryParams): Promise<PersonPagination> {
+		return (await swapiRepository.search(query, toPerson)) as PersonPagination
 	}
 }
 
@@ -56,8 +49,4 @@ function toPerson(response: PersonResponse): Person {
 		species: response.species.map(url => getFirstNumberFromUrl(url)),
 		starships_id: response.starships.map(url => getFirstNumberFromUrl(url)),
 	}
-}
-
-function toPersons(response: PersonsResponse): Person[] {
-	return response.results.map(person => toPerson(person))
 }

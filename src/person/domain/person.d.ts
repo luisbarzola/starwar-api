@@ -26,4 +26,11 @@ type QueryParams = {
 	page: number | null
 }
 
-export type { Person, PersonFull, QueryParams }
+type PersonPagination = {
+	next_page: number | null
+	preview_page: number | null
+	actual_page: number | null
+	results: Person[]
+}
+
+export type { Person, PersonFull, QueryParams, PersonPagination }

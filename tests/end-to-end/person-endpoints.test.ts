@@ -13,14 +13,24 @@ describe('PersonEndpoints', () => {
 	describe('search first page', () => {
 		it('should return the people from first page', async () => {
 			const res = await request(app).get('/people')
-			expect(res.body).toEqual(people[0])
+			expect(res.body).toEqual({
+				actual_page: 1,
+				next_page: 2,
+				preview_page: null,
+				results: people[0],
+			})
 		})
 	})
 
 	describe('search second page', () => {
 		it('should return the people from second page', async () => {
 			const res = await request(app).get('/people?page=2')
-			expect(res.body).toEqual(people[1])
+			expect(res.body).toEqual({
+				actual_page: 2,
+				next_page: null,
+				preview_page: 1,
+				results: people[1],
+			})
 		})
 	})
 
