@@ -35,7 +35,7 @@ module.exports = {
             ],
         "@typescript-eslint/consistent-type-imports": "off",
         "@typescript-eslint/prefer-readonly-parameter-types": "off",
-        "@typescript-eslint/consistent-type-definitions": ["error", "type"]
+        "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     },
     "ignorePatterns": ['.eslintrc.cjs', "jest.config.js", "babel.config.js"],
 }

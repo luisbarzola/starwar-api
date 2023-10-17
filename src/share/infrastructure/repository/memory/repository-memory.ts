@@ -16,14 +16,21 @@ export class RepositoryMemory {
 	search(query: QueryParams): any {
 		const page = query.page ?? 1
 
+		const response = {
+			next_page: this.data.length <= page ? null : page + 1,
+			preview_page: page === 1 ? null : page - 1,
+			actual_page: page,
+		}
+
 		if (this.data[page - 1] !== undefined) {
-			return this.data[page - 1]
+			return {
+				...response,
+				results: this.data[page - 1],
+			}
 		}
 
 		return {
-			next_page: this.data.length === page ? page + 1 : null,
-			preview_page: page === 1 ? null : page - 1,
-			actual_page: page,
+			...response,
 			results: [],
 		}
 	}
