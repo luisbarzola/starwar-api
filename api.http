@@ -1,5 +1,8 @@
 ###
-GET https://swapi.dev/api/people/?search=
+GET  https://swapi.dev/api/people/?page=1
+
+###
+GET https://starwar-api.onrender.com/people
 
 ### Person by id
 GET http://localhost:3000/people/1
@@ -8,25 +11,25 @@ GET http://localhost:3000/people/1
 GET http://localhost:3000/people/1/full
 
 ### All persons
-GET http://localhost:3000/people?q=l
+GET http://localhost:3000/people
 
 ### All persons with pagination
 GET http://localhost:3000/people?page=2&q=l
 
 ### All planets
-GET http://localhost:3000/planets
+GET http://localhost:3000/planets?q=Alderaan
 
 ### All planets with pagination
 GET http://localhost:3000/planets?page=2
 
 ### All films
-GET http://localhost:3000/films
+GET http://localhost:3000/films?q=hope
 
 ### All films with pagination
 GET http://localhost:3000/films?page=2
 
 ### All starships
-GET http://localhost:3000/starships
+GET http://localhost:3000/starships?q=star
 
 ### All starships with pagination
 GET http://localhost:3000/starships?page=2
