@@ -24,6 +24,7 @@ type PersonFull = Person & PersonAggregate
 
 type QueryParams = {
 	page: number | null
+	q: string | null
 }
 
 type PersonPagination = {

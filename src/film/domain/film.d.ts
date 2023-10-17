@@ -13,6 +13,7 @@ export type Film = {
 
 export type QueryParams = {
 	page: number | null
+	q: string | null
 }
 
 type FilmPagination = {

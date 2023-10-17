@@ -11,13 +11,12 @@ app.disable('x-powered-by')
 app.use(cors<Request>())
 
 app.use((req, res, next) => {
-	/*
 	console.log({
 		date: new Date(),
 		req: req.method,
 		url: req.url,
 	})
-	*/
+
 	next()
 })
 

@@ -1,5 +1,5 @@
 ###
-GET https://swapi.dev/api/people/?page=1
+GET https://swapi.dev/api/people/?search=
 
 ### Person by id
 GET http://localhost:3000/people/1
@@ -8,10 +8,10 @@ GET http://localhost:3000/people/1
 GET http://localhost:3000/people/1/full
 
 ### All persons
-GET http://localhost:3000/people
+GET http://localhost:3000/people?q=l
 
 ### All persons with pagination
-GET http://localhost:3000/people?page=2
+GET http://localhost:3000/people?page=2&q=l
 
 ### All planets
 GET http://localhost:3000/planets

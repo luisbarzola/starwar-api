@@ -2,6 +2,7 @@ import { getPage } from '../../repository/utils'
 
 export type QueryParams = {
 	page: number | null
+	q: string | null
 }
 
 type Pagination = {
@@ -26,7 +27,8 @@ export default class SwapiRepository {
 		transformer: (data: any) => any,
 	): Promise<Pagination> {
 		const page = query.page ?? 1
-		const queryUrl = `/?page=${page}`
+		const search = query.q !== null ? `&search=${query.q}` : ''
+		const queryUrl = `/?page=${page}${search}`
 
 		try {
 			const response = await fetch(`${this.url}${queryUrl}`)

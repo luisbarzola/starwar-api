@@ -8,9 +8,11 @@ export default class FilmController {
 	async searchFilms(req: Request, res: Response): Promise<void> {
 		const page =
 			typeof req.query.page === 'string' ? parseInt(req.query.page) : null
+		const q = typeof req.query.q === 'string' ? req.query.q : null
 
 		const query: QueryParams = {
 			page,
+			q,
 		}
 
 		res.send(await this.operation.execute(query))

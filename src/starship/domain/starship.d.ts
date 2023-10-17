@@ -19,6 +19,7 @@ export type Starship = {
 
 export type QueryParams = {
 	page: number | null
+	q: string | null
 }
 
 type StarshipPagination = {

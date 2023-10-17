@@ -15,6 +15,7 @@ export type Planet = {
 
 export type QueryParams = {
 	page: number | null
+	q: string | null
 }
 
 type PlanetPagination = {
