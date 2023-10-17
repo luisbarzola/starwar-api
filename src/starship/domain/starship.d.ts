@@ -20,3 +20,10 @@ export type Starship = {
 export type QueryParams = {
 	page: number | null
 }
+
+type StarshipPagination = {
+	next_page: number | null
+	preview_page: number | null
+	actual_page: number | null
+	results: Starship[]
+}

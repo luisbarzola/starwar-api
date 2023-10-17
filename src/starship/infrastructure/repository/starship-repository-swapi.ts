@@ -1,10 +1,16 @@
 import fetch from 'node-fetch'
 import type StarshipRepositoryInterface from '../../domain/starship-repository'
-import { Starship, QueryParams } from '../../domain/starship'
+import {
+	Starship,
+	QueryParams,
+	StarshipPagination,
+} from '../../domain/starship'
 import { getFirstNumberFromUrl } from '../../../share/infrastructure/repository/utils'
-import { StarshipResponse, StarshipsResponse } from './starship-res-api'
+import { StarshipResponse } from './starship-res-api'
+import SwapiRepository from '../../../share/infrastructure/repository/swapi/swapi-repository'
 
 const url = 'https://swapi.dev/api/starships'
+const swapiRepository = new SwapiRepository(url)
 
 export default class StarshipRepository implements StarshipRepositoryInterface {
 	async find(id: number): Promise<Starship | null> {
@@ -26,17 +32,11 @@ export default class StarshipRepository implements StarshipRepositoryInterface {
 		}
 	}
 
-	async search(query: QueryParams): Promise<Starship[]> {
-		const queryUrl = query.page !== null ? `/?page=${query.page}` : ``
-		try {
-			const response = await fetch(`${url}${queryUrl}`)
-			const starshipJson = await response.json()
-
-			return toStarships(starshipJson as StarshipsResponse)
-		} catch (error) {
-			console.error(error)
-			return []
-		}
+	async search(query: QueryParams): Promise<StarshipPagination> {
+		return (await swapiRepository.search(
+			query,
+			toStarship,
+		)) as StarshipPagination
 	}
 }
 
@@ -59,8 +59,4 @@ function toStarship(response: StarshipResponse): Starship {
 		pilots_id: response.pilots.map(url => getFirstNumberFromUrl(url)),
 		films_id: response.films.map(url => getFirstNumberFromUrl(url)),
 	}
-}
-
-function toStarships(response: StarshipsResponse): Starship[] {
-	return response.results.map(starshipResponse => toStarship(starshipResponse))
 }

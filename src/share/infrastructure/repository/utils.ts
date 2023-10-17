@@ -1,9 +1,9 @@
 export function getFirstNumberFromUrl(url: string): number {
-	const id = url.match(/\/(\d+)\/$/)
+	const id = url.slice(-1)
 
-	if (id === null || typeof id[1] !== 'string') {
-		throw new Error('Invalid person id')
+	if (id === null || typeof id !== 'string') {
+		throw new Error(`Invalid id: ulr: ${url} and id: ${id}`)
 	}
 
-	return parseInt(id[1])
+	return parseInt(id)
 }

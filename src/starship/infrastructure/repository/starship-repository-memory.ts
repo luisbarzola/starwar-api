@@ -1,5 +1,9 @@
 import type StarshipRepositoryInterface from '../../domain/starship-repository'
-import { Starship, QueryParams } from '../../domain/starship'
+import {
+	Starship,
+	QueryParams,
+	StarshipPagination,
+} from '../../domain/starship'
 import { RepositoryMemory } from '../../../share/infrastructure/repository/memory/repository-memory'
 
 export const starships = [
@@ -89,7 +93,7 @@ export class StarshipRepositoryMemory implements StarshipRepositoryInterface {
 		return repository.find(id) as Starship
 	}
 
-	async search(query: QueryParams): Promise<Starship[]> {
-		return repository.search(query) as Starship[]
+	async search(query: QueryParams): Promise<StarshipPagination> {
+		return repository.search(query) as StarshipPagination
 	}
 }

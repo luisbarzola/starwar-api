@@ -10,14 +10,24 @@ describe('StarshipEndpoints', () => {
 	describe('search first page', () => {
 		it('should return the starships from first page', async () => {
 			const res = await request(app).get('/starships')
-			expect(res.body).toEqual(starships[0])
+			expect(res.body).toEqual({
+				actual_page: 1,
+				next_page: 2,
+				preview_page: null,
+				results: starships[0],
+			})
 		})
 	})
 
 	describe('search second page', () => {
 		it('should return the starships from second page', async () => {
 			const res = await request(app).get('/starships?page=2')
-			expect(res.body).toEqual(starships[1])
+			expect(res.body).toEqual({
+				actual_page: 2,
+				next_page: null,
+				preview_page: 1,
+				results: starships[1],
+			})
 		})
 	})
 
