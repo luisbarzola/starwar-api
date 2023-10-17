@@ -24,7 +24,12 @@ describe('FilmEndpoints', () => {
 	describe('search page not exist', () => {
 		it('should return the films on non-existent page', async () => {
 			const res = await request(app).get('/films?page=3')
-			expect(res.body).toEqual([])
+			expect(res.body).toEqual({
+				actual_page: 3,
+				next_page: null,
+				preview_page: 2,
+				results: [],
+			})
 		})
 	})
 })

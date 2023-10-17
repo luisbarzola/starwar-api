@@ -1,5 +1,5 @@
 import FilmRepository from './film-repository'
-import { Film, QueryParams } from './film'
+import { Film, FilmPagination, QueryParams } from './film'
 
 export default class FilmModel {
 	constructor(private readonly repository: FilmRepository) {}
@@ -8,7 +8,7 @@ export default class FilmModel {
 		return await this.repository.find(id)
 	}
 
-	async search(query: QueryParams): Promise<Film[]> {
+	async search(query: QueryParams): Promise<FilmPagination> {
 		return await this.repository.search(query)
 	}
 }

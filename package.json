@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "npx tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint --fix \"src/**/*.{js,ts}\" \"test/**/*.{js,ts}\"",
@@ -35,6 +35,7 @@
     "typescript": "5.2.2"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "4.18.2",
     "node-fetch": "2.0.0"
   }

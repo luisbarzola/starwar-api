@@ -27,7 +27,12 @@ describe('PersonEndpoints', () => {
 	describe('search page not exist', () => {
 		it('should return the people on non-existent page', async () => {
 			const res = await request(app).get('/people?page=3')
-			expect(res.body).toEqual([])
+			expect(res.body).toEqual({
+				actual_page: 3,
+				next_page: null,
+				preview_page: 2,
+				results: [],
+			})
 		})
 	})
 

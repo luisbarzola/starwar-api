@@ -14,3 +14,10 @@ export type Film = {
 export type QueryParams = {
 	page: number | null
 }
+
+type FilmPagination = {
+	next_page: number | null
+	preview_page: number | null
+	actual_page: number | null
+	results: Film[]
+}

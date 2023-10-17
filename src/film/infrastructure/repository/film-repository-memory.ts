@@ -1,5 +1,5 @@
 import type FilmRepositoryInterface from '../../domain/film-repository'
-import { Film, QueryParams } from '../../domain/film'
+import { Film, QueryParams, FilmPagination } from '../../domain/film'
 import { RepositoryMemory } from '../../../share/infrastructure/repository/memory/repository-memory'
 
 export const films = [
@@ -78,7 +78,7 @@ export class FilmRepositoryMemory implements FilmRepositoryInterface {
 		return repository.find(id) as Film
 	}
 
-	async search(query: QueryParams): Promise<Film[]> {
-		return repository.search(query) as Film[]
+	async search(query: QueryParams): Promise<FilmPagination> {
+		return repository.search(query) as FilmPagination
 	}
 }

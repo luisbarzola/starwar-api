@@ -13,14 +13,19 @@ export class RepositoryMemory {
 		return result
 	}
 
-	search(query: QueryParams): any[] {
+	search(query: QueryParams): any {
 		const page = query.page ?? 1
 
 		if (this.data[page - 1] !== undefined) {
 			return this.data[page - 1]
 		}
 
-		return []
+		return {
+			next_page: this.data.length === page ? page + 1 : null,
+			preview_page: page === 1 ? null : page - 1,
+			actual_page: page,
+			results: [],
+		}
 	}
 
 	private all(): any[] {

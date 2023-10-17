@@ -1,3 +1,6 @@
+###
+GET https://swapi.dev/api/people/?page=1
+
 ### Person by id
 GET http://localhost:3000/people/1
 

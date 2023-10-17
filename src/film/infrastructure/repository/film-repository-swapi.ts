@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 import type FilmRepositoryInterface from '../../domain/film-repository'
-import { Film, QueryParams } from '../../domain/film'
+import { Film, QueryParams, FilmPagination } from '../../domain/film'
 import { getFirstNumberFromUrl } from '../../../share/infrastructure/repository/utils'
 import { FilmResponse, FilmsResponse } from './film-res-api'
 
@@ -26,21 +26,33 @@ export default class FilmRepository implements FilmRepositoryInterface {
 		}
 	}
 
-	async search(query: QueryParams): Promise<Film[]> {
+	async search(query: QueryParams): Promise<FilmPagination> {
+		const page = query.page ?? 1
+
 		const queryUrl = query.page !== null ? `/?page=${query.page}` : ``
 		try {
 			const response = await fetch(`${url}${queryUrl}`)
 
 			if (response.status !== 200) {
-				return []
+				return {
+					next_page: null,
+					preview_page: null,
+					actual_page: page,
+					results: [],
+				}
 			}
 
 			const filmJson = await response.json()
 
-			return toFilms(filmJson as FilmsResponse)
+			return toFilms(filmJson as FilmsResponse, page)
 		} catch (error) {
 			console.error(error)
-			return []
+			return {
+				next_page: null,
+				preview_page: null,
+				actual_page: page,
+				results: [],
+			}
 		}
 	}
 }
@@ -60,6 +72,15 @@ function toFilm(response: FilmResponse): Film {
 	}
 }
 
-function toFilms(response: FilmsResponse): Film[] {
-	return response.results.map(filmResponse => toFilm(filmResponse))
+function toFilms(response: FilmsResponse, page: number | null): FilmPagination {
+	return {
+		next_page:
+			response.next !== null ? getFirstNumberFromUrl(response.next) : null,
+		preview_page:
+			response.previous !== null
+				? getFirstNumberFromUrl(response.previous)
+				: null,
+		actual_page: page,
+		results: response.results.map(filmResponse => toFilm(filmResponse)),
+	}
 }

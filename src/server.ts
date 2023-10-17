@@ -4,9 +4,20 @@ import { peopleRouter } from './person/infrastructure/rest-api/people-router'
 import { planetsRouter } from './planet/infrastructure/rest-api/planet-router'
 import { filmsRouter } from './film/infrastructure/rest-api/film-router'
 import { starshipRouter } from './starship/infrastructure/rest-api/starship-router'
+import cors from 'cors'
 
 const app: Application = express()
 app.disable('x-powered-by')
+app.use(cors<Request>())
+
+app.use((req, res, next) => {
+	console.log({
+		date: new Date(),
+		req: req.method,
+		url: req.url,
+	})
+	next()
+})
 
 app.use('/people', peopleRouter)
 app.use('/planets', planetsRouter)
