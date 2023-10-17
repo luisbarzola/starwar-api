@@ -1,4 +1,5 @@
 import { getPage } from '../../repository/utils'
+import fetch from 'node-fetch'
 
 export type QueryParams = {
 	page: number | null
